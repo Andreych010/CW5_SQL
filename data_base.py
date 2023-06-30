@@ -142,7 +142,8 @@ class DBManager(DBCreate):
 
         conn = psycopg2.connect(dbname=self.database_name, **self.params)
         with conn.cursor() as cur:
-            cur.execute("SELECT ROUND(AVG(salary_avg)) as avg_salary FROM vacancies WHERE salary_from>0 AND salary_to>0")
+            cur.execute(
+                "SELECT ROUND(AVG(salary_avg)) as avg_salary FROM vacancies WHERE salary_from>0 AND salary_to>0")
             return cur.fetchall()
 
     def get_vacancies_with_higher_salary(self):
