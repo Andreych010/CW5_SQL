@@ -2,31 +2,31 @@ from utils import *
 
 
 def main():
-    params = config()
-    db = DBCreate('hh_database', params)
-    db.create_database()
+    params = config() # Модуль подключения к локальному postgresql через файл database.ini
     print("Здравствуйте!  ")
     print("Загружаем данные компаний:\n'Программный Продукт', 'Softline', 'WebSoft', 'СоюзБалтКомплект', 'Marillion', 'Diasoft', 'JTI', 'IBS', 'INLINE', 'CSBI'")
     print('Возможно понадобится некоторое время, прийдётся немного подождать \U0001F642...')
-    data_loading('hh_database')
+    data_loading('hh_database')  # Загружает БД hh_database
+
+    # Цикл взаимодействия с пользователем, через класс DBManager БД hh_database
     while True:
-        db_manager = DBManager('hh_database', params)
-        emp_and_count = db_manager.get_companies_and_vacancies_count()
-        print('\nНажмите 1, чтобы просмотреть сколько вакансий в компании.')
-        print('Нажмите 2, чтобы просмотреть список всех вакансий с указанием названия компании, вакансии, зарплаты и ссылки на вакансию.')
-        print('Нажмите 3, чтобы узнать среднюю зарплату.')
-        print('Нажмите 4, чтобы узнать вакансии, зарплата по которым выше средней из найденных.')
-        print('Нажмите 5, чтобы посмотреть все вакансии по ключевому слову.')
-        print('Нажмите 6, чтобы закончить работу программы.')
+        db_manager = DBManager('hh_database', params) # Экземпляр класса DBManager
+        print('\nВведите 1, чтобы просмотреть сколько вакансий в компании.')
+        print('Введите 2, чтобы просмотреть список всех вакансий с указанием названия компании, вакансии, зарплаты и ссылки на вакансию.')
+        print('Введите 3, чтобы узнать среднюю зарплату.')
+        print('Введите 4, чтобы узнать вакансии, зарплата по которым выше средней из найденных.')
+        print('Введите 5, чтобы посмотреть все вакансии по ключевому слову.')
+        print('Введите 6, чтобы закончить работу программы.')
         user_number = input()
         if user_number == '1':
-            print(f"Cписок всех компаний и количество вакансий у каждой компании: \n{emp_and_count}")
+            print(f"Cписок всех компаний и количество вакансий у каждой компании: \n{db_manager.get_companies_and_vacancies_count()}")
         elif user_number == '2':
-            print(f"Список компании, вакансии, зарплаты и ссылки на вакансию.: {db_manager.get_all_vacancies()}")
+            print(f"Список компаний, вакансий, зарплаты и ссылки на вакансию.: {db_manager.get_all_vacancies()}")
         elif user_number == '3':
             print(f"Средняя зарплата среди всех найденных: {db_manager.get_avg_salary()}")
         elif user_number == '4':
-            print(f'Это вакансии, зарплата по которым выше средней из найденных: \n{db_manager.get_vacancies_with_higher_salary()}')
+            print(
+                f'Это вакансии, зарплата по которым выше средней из найденных: \n{db_manager.get_vacancies_with_higher_salary()}')
         elif user_number == '5':
             word_key = input('Введите ключевое слово:  ')
             print(f'Вакансии найденые по вашему ключевому слову: \n{db_manager.get_vacancies_with_keyword(word_key)}')
