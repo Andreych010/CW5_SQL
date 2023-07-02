@@ -118,7 +118,8 @@ class DBManager(DBCreate):
             rows = cur.fetchall()
             for row in rows:
                 list_companies_and_vacancies_count.append(row)
-            return list_companies_and_vacancies_count
+        for x in list_companies_and_vacancies_count:
+            print(x)
 
     def get_all_vacancies(self):
         '''
@@ -133,8 +134,9 @@ class DBManager(DBCreate):
             rows = cur.fetchall()
             for row in rows:
                 list_all_vacancies.append(row)
-            return list_all_vacancies
-
+            #return list_all_vacancies
+        for x in list_all_vacancies:
+            print(x)
     def get_avg_salary(self):
         '''
         Возвращает среднюю зарплату по вакансиям.
@@ -145,6 +147,7 @@ class DBManager(DBCreate):
             cur.execute(
                 "SELECT ROUND(AVG(salary_avg)) as avg_salary FROM vacancies WHERE salary_from>0 AND salary_to>0")
             return cur.fetchall()
+
 
     def get_vacancies_with_higher_salary(self):
         '''
@@ -161,7 +164,9 @@ class DBManager(DBCreate):
             rows = cur.fetchall()
             for row in rows:
                 list_with_higher_salary_vacancies.append(row)
-            return list_with_higher_salary_vacancies
+            # return list_with_higher_salary_vacancies
+        for x in list_with_higher_salary_vacancies:
+            print(x)
 
     def get_vacancies_with_keyword(self, word: str):
         '''
@@ -178,4 +183,6 @@ class DBManager(DBCreate):
             rows = cur.fetchall()
             for row in rows:
                 list_with_keyword_vacancies.append(row)
-            return list_with_keyword_vacancies
+            # return list_with_keyword_vacancies
+        for x in list_with_keyword_vacancies:
+            print(x)
