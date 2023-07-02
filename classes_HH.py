@@ -14,17 +14,16 @@ class Employers:
         '''
         try:
             employers = []
-            while True:
-                for page in range(0, 100):
-                    params = {
-                        "text": f"{self.data}",
-                        "area": 113,
-                        "only_with_vacancies": True,
-                        "pages": 1,
-                        "per_page": 50,
-                    }
-                    employers.extend(requests.get('https://api.hh.ru/employers', params=params).json()["items"])
-                    return employers
+            for page in range(0, 100):
+                params = {
+                    "text": f"{self.data}",
+                    "area": 113,
+                    "only_with_vacancies": True,
+                    "pages": 1,
+                    "per_page": 50,
+                }
+                employers.extend(requests.get('https://api.hh.ru/employers', params=params).json()["items"])
+                return employers
         except requests.exceptions.ConnectTimeout:
             print('Oops. Connection timeout occured!')
         except requests.exceptions.ReadTimeout:
@@ -53,16 +52,15 @@ class Vacancy:
 
         try:
             vacancy = []
-            while True:
-                for page in range(0, 100):
-                    params = {
-                        "employer_id": f"{self.id_employer}",
-                        "page": page,
-                        'per_page': 50,
-                    }
-                    vacancy.extend(requests.get('https://api.hh.ru/vacancies?', params=params).json()['items'])
-                    time.sleep(0.22)
-                    return vacancy
+            for page in range(0, 100):
+                params = {
+                    "employer_id": f"{self.id_employer}",
+                    "page": page,
+                    'per_page': 50,
+                }
+                vacancy.extend(requests.get('https://api.hh.ru/vacancies?', params=params).json()['items'])
+                time.sleep(0.22)
+                return vacancy
         except requests.exceptions.ConnectTimeout:
             print('Oops. Connection timeout occured!')
         except requests.exceptions.ReadTimeout:
