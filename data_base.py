@@ -134,9 +134,10 @@ class DBManager(DBCreate):
             rows = cur.fetchall()
             for row in rows:
                 list_all_vacancies.append(row)
-            #return list_all_vacancies
+            # return list_all_vacancies
         for x in list_all_vacancies:
             print(x)
+
     def get_avg_salary(self):
         '''
         Возвращает среднюю зарплату по вакансиям.
@@ -147,7 +148,6 @@ class DBManager(DBCreate):
             cur.execute(
                 "SELECT ROUND(AVG(salary_avg)) as avg_salary FROM vacancies WHERE salary_from>0 AND salary_to>0")
             return cur.fetchall()
-
 
     def get_vacancies_with_higher_salary(self):
         '''
